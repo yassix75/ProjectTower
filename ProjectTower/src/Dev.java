@@ -7,7 +7,6 @@ public class Dev {
 		System.out.println("CECI EST LE DEVMAP sous branche de dev");
 	}
 }
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 /*
 import java.io.File;
 import java.util.ArrayList;
