@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TileLayer {
-	// on a une matrice crée 
-	private static  int[][] map; //map pas static car on est en orianté objet donc le changer
+	// on a une matrice crï¿½e 
+	private static  int[][] map; //map pas static car on est en oriantï¿½ objet donc le changer
 	
 	// Recuperer une image
 
@@ -42,7 +42,7 @@ public class TileLayer {
     //Si la ligne est vide continuer 
         	   if(currentLine.isEmpty())
         		   continue;
-    // Si la ligne n'est pas vide crée une variable qui s'apl row (tableau d'entier)
+    // Si la ligne n'est pas vide crï¿½e une variable qui s'apl row (tableau d'entier)
         	   ArrayList<Integer> row =  new ArrayList<>();
         	   String[] values = currentLine.trim().split(" ");
         	   for(String s:values)
