@@ -91,7 +91,7 @@ public class TileLayer {
      return img;
 	}
 
-	public 	void DrawLayer( Graphics g){
+	public 	void DrawLayer( Graphics g){   
 		for(int y=0; y<map.length;y++ )
 		{
 			for (int x=0; x<map[y].length;x++)
