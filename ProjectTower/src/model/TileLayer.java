@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
 
 public class TileLayer {
 	// on a une matrice crée 
-	private static  int[][] map;
+	private static  int[][] map; //map pas static car on est en orianté objet donc le changer
+	
 	// Recuperer une image
 
 	private BufferedImage tileSheet;
@@ -30,7 +31,7 @@ public class TileLayer {
 		TileLayer layer = null;
     //tmplayout est une matrice temporaire
 		 ArrayList<ArrayList<Integer>> tempLayout = new ArrayList<>();
-		 
+         		 
 	//recuperer le contenu du fichier text
 		 try(BufferedReader br = new BufferedReader((new FileReader(fileName))))
 		 {
