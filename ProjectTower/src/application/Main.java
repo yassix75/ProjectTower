@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import application.controleur.Controleur;
+import application.modele.Jeu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -22,7 +24,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root =  FXMLLoader.load(getClass().getResource("/application/vue/ProjectTowerD.fxml"));
+			BorderPane root =  FXMLLoader.load(getClass().getResource("/application/vue/ProjectTowerD.fxml"));		
 			Scene scene = new Scene(root,700,600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -30,8 +32,9 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
+		
 		Application.launch(args);
 	}
 }

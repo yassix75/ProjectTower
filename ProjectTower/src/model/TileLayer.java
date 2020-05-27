@@ -12,19 +12,15 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class TileLayer {
-	// on a une matrice crï¿½e 
-	private static  int[][] map; //map pas static car on est en oriantï¿½ objet donc le changer
+	// on a une matrice crée
+	private static  int[][] map; //map pas static car on est en orianté objet donc le changer
 	
 	// Recuperer une image
-
 	private BufferedImage tileSheet;
 	//Un constructeur pour initialiser la map 
-	public TileLayer(int width , int height )
-	{
+	public TileLayer(int width , int height ){
 		map = new int[height][width];
 	}
-
-
 	//Une fonction pour copier le contenu du fichier texte vers la 
 	public static TileLayer FromFile(String fileName){
 
@@ -33,22 +29,18 @@ public class TileLayer {
 		 ArrayList<ArrayList<Integer>> tempLayout = new ArrayList<>();
          		 
 	//recuperer le contenu du fichier text
-		 try(BufferedReader br = new BufferedReader((new FileReader(fileName))))
-		 {
+		 try(BufferedReader br = new BufferedReader((new FileReader(fileName)))){
            String currentLine;
     //Parcourrir le fichier text lign par ligne 
-           while((currentLine = br.readLine()) !=null)
-           {
+           	while((currentLine = br.readLine()) !=null){
     //Si la ligne est vide continuer 
-        	   if(currentLine.isEmpty())
+        	if(currentLine.isEmpty())
         		   continue;
-    // Si la ligne n'est pas vide crï¿½e une variable qui s'apl row (tableau d'entier)
+    // Si la ligne n'est pas vide crée une liste qui s'apl row (liste d'entier)
         	   ArrayList<Integer> row =  new ArrayList<>();
         	   String[] values = currentLine.trim().split(" ");
-        	   for(String s:values)
-        	   {
-        		   if(!s.isEmpty())
-        		   {
+        	   for(String s:values) {
+        		   if(!s.isEmpty()) {
         			   int id = Integer.parseInt(s);
         			   row.add(id);
         		   }
@@ -57,48 +49,36 @@ public class TileLayer {
            }
 		 }
 		 catch(IOException e){
-
-		  System.out.print(e);
-
+			 System.out.print(e);
 		 }
 
 		 int width = tempLayout.get(0).size();
 		 int height = tempLayout.size();
 		 layer = new TileLayer(width, height);
-		 for(int y=0;y< height;y++)
-		 {
-			 for(int x=0;x<width;x++)
-			 {
+		 for(int y=0;y< height;y++){
+			 for(int x=0;x<width;x++) {
 				 layer.map[y][x]= tempLayout.get(y).get(x);
 			 }
 		 }
-
-
-
 		return layer;
-
 	}
 
 	public BufferedImage LoadTileSheet(String fileName){
-
-	BufferedImage img = null;
-	try {
-		img = ImageIO.read(new File(fileName));
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(fileName));
+		}
+		catch(IOException e){
+			System.out.println("Could not load Image!");
+		}
+		return img;
 	}
-	catch(IOException e){
-		System.out.println("Could not load Image!");
-	}
-     return img;
-	}
 
-	public 	void DrawLayer( Graphics g){   //Pk ??
-		for(int y=0; y<map.length;y++ )
-		{
-			for (int x=0; x<map[y].length;x++)
-			{
-             int index = map[y][x];
-             int yoffset=0;
-
+	public 	void DrawLayer( Graphics g){   
+		for(int y=0; y<map.length;y++ ){
+			for (int x=0; x<map[y].length;x++){
+				int index = map[y][x];
+				int yoffset=0;
 			}
 		}
 	}
@@ -109,7 +89,7 @@ public class TileLayer {
 	}
 
 	public static void main(String[] args) {
-		TileLayer t = TileLayer.FromFile("C:\\Users\\toto\\git\\ProjectTower\\ProjectTower\\src\\model\\map.txt");
-		System.out.println(t.map[0].length);
+	//	TileLayer t = TileLayer.FromFile("/application/modele/towerdeflight.csv");
+	//	System.out.println(t.map[0].length);
 	}
 }
