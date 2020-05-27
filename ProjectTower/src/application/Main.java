@@ -25,7 +25,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root =  FXMLLoader.load(getClass().getResource("/application/vue/ProjectTowerD.fxml"));		
-			Scene scene = new Scene(root,700,600);
+			Scene scene = new Scene(root,660,600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

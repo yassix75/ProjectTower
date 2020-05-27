@@ -32,8 +32,8 @@ public class Controleur implements Initializable{
 	
 	public void afficherMap(Jeu jeu) {
 		
-		for (int x = 0; x < jeu.getLargeur(); x++) {
-			for(int y = 0; y < jeu.getHauteur(); y++ ) {
+		for (int x = 0; x < jeu.getLargeur()-1; x++) {
+			for(int y = 0; y < jeu.getHauteur()-1; y++ ) {
 				int leCodeTuile = jeu.getCodeUneTuile(x, y);
 				if (leCodeTuile == 41) {
 					afficheTuile("TuileNeige41.png");
@@ -70,6 +70,9 @@ public class Controleur implements Initializable{
 				}
 				else if (leCodeTuile == 17) {
 					afficheTuile("TuileMtoit17.png");
+				}
+				else {
+					afficheTuile("TuileNeige41.png");
 				}
 			}
 		}		

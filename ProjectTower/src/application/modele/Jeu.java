@@ -67,7 +67,7 @@ public class Jeu {
 	}
 	
 	public int getCodeUneTuile(int x, int y) {
-		return codeTuiles[x][y];
+		return codeTuiles[y][x];
 	}
 }
 
