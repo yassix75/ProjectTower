@@ -24,6 +24,10 @@ public class Controleur implements Initializable{
     @FXML
     private TilePane mapTiledPane;
     
+    @FXML
+    private Pane pane;
+    
+  //  private Map<int, String> dictionnaireImage = new HashMap< int,String>();
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.jeu = new Jeu(57, 42);
@@ -36,53 +40,58 @@ public class Controleur implements Initializable{
 			for(int y = 0; y < jeu.getHauteur()-1; y++ ) {
 				int leCodeTuile = jeu.getCodeUneTuile(x, y);
 				if (leCodeTuile == 41) {
-					afficheTuile("TuileNeige41.png");
+					afficheTuile("TuileNeige41.png",x,y);
 				}
 				else if (leCodeTuile == 386) {
-					afficheTuile("TuileChemin386.png");
+					afficheTuile("TuileChemin386.png",x,y);
 				}
 				else if (leCodeTuile == 78) {
-					afficheTuile("TuileBat78.png");
+					afficheTuile("TuileBat78.png",x,y);
 				}
 				else if (leCodeTuile == 38) {
-					afficheTuile("TuileBois38.png");
+					afficheTuile("TuileBois38.png",x,y);
 				}
 				else if (leCodeTuile == 39) {
-					afficheTuile("TuileBois39.png");
+					afficheTuile("TuileBois39.png",x,y);
 				}
 				else if (leCodeTuile == 56) {
-					afficheTuile("TuileBois56.png");
+					afficheTuile("TuileBois56.png",x,y);
 				}
 				else if (leCodeTuile == 57) {
-					afficheTuile("TuileBois57.png");
+					afficheTuile("TuileBois57.png",x,y);
 				}
 				else if (leCodeTuile == 65) {
-					afficheTuile("TuileMbord65.png");
+					afficheTuile("TuileMbord65.png",x,y);
 				}
 				else if (leCodeTuile == 74) {
-					afficheTuile("TuileMbord74.png");
+					afficheTuile("TuileMbord74.png",x,y);
 				}
 				else if (leCodeTuile == 67) {
-					afficheTuile("TuileMmur67.png");
+					afficheTuile("TuileMmur67.png",x,y);
 				}
 				else if (leCodeTuile == 68) {
-					afficheTuile("TuileMmur68.png");
+					afficheTuile("TuileMmur68.png",x,y);
 				}
 				else if (leCodeTuile == 17) {
-					afficheTuile("TuileMtoit17.png");
+					afficheTuile("TuileMtoit17.png",x,y);
 				}
 				else {
-					afficheTuile("TuileNeige41.png");
+					afficheTuile("TuileNeige41.png",x,y);
 				}
 			}
 		}		
 	}
 	
-	public void afficheTuile(String URL) {
-		mapTiledPane.getChildren().add(new ImageView("file:src/application/vue/" + URL));
+	public void afficheTuile(String URL,int x, int y) {
+		ImageView tuile =new ImageView("file:src/application/vue/" + URL);
+		tuile.setFitHeight(12);
+		tuile.setFitWidth(tuile.getFitHeight());
+		tuile.setTranslateX(12*x); 
+        tuile.setTranslateY(tuile.getTranslateX()/x*y);
+		pane.getChildren().add(tuile);
 	}
 	
-	public void remplirTile() {//methode remplissage tuile par tuile (brouillon)
+	public void remplirTile() {
 		int x = 0, y = 0;
 		
 		Image image = new Image("/application/vue/tpligth.png");
@@ -105,7 +114,4 @@ public class Controleur implements Initializable{
 	@SuppressWarnings("unused")
 	private void unTour() {
 	 }
-		//utiliser ViewPort(internet)-select a piece of image - codetuile une par une
-		//tilePane.add - limage de la tuile coresspondante est ajoute - dessine plateau
-	
 }
