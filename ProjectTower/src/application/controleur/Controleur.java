@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 
-
 public class Controleur implements Initializable{
 	private Jeu jeu;
 
@@ -27,7 +26,6 @@ public class Controleur implements Initializable{
     @FXML
     private Pane pane;
     
-  //  private Map<int, String> dictionnaireImage = new HashMap< int,String>();
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.jeu = new Jeu(57, 42);
@@ -39,10 +37,7 @@ public class Controleur implements Initializable{
 		for (int x = 0; x < jeu.getLargeur()-1; x++) {
 			for(int y = 0; y < jeu.getHauteur()-1; y++ ) {
 				int leCodeTuile = jeu.getCodeUneTuile(x, y);
-				if (leCodeTuile == 41) {
-					afficheTuile("TuileNeige41.png",x,y);
-				}
-				else if (leCodeTuile == 386) {
+				if (leCodeTuile == 386) {
 					afficheTuile("TuileChemin386.png",x,y);
 				}
 				else if (leCodeTuile == 78) {
@@ -83,32 +78,12 @@ public class Controleur implements Initializable{
 	}
 	
 	public void afficheTuile(String URL,int x, int y) {
-		ImageView tuile =new ImageView("file:src/application/vue/" + URL);
+		ImageView tuile = new ImageView("file:src/application/vue/" + URL);
 		tuile.setFitHeight(12);
 		tuile.setFitWidth(tuile.getFitHeight());
 		tuile.setTranslateX(12*x); 
         tuile.setTranslateY(tuile.getTranslateX()/x*y);
 		pane.getChildren().add(tuile);
-	}
-	
-	public void remplirTile() {
-		int x = 0, y = 0;
-		
-		Image image = new Image("/application/vue/tpligth.png");
-		ImageView iv1 = new ImageView();
-        iv1.setImage(image);
-        Rectangle2D r1 = new Rectangle2D(x, y, 57, 42);
-        iv1.setViewport(r1);
-		while( y <= r1.getMaxY() && x <= r1.getMaxX()) {
-			if (x == r1.getMaxX()) {
-				x = 0;
-				y++;
-			}
-			else {
-				new ImageView().setViewport(r1);	
-				x++;
-			}
-		}
 	}
 	 
 	@SuppressWarnings("unused")
