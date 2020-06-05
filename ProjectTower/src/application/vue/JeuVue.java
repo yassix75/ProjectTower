@@ -39,7 +39,9 @@ public class JeuVue {
 	public JeuVue(Jeu jeu, Pane paneMap) {
 		this.jeu = jeu;
 		this.paneMap = paneMap;
+		this.paneEnnemis = paneMap;
 	}
+	//public JeuVue(Jeu jeu, Pane paneEnnemis) {
 	
 	public void afficherMap() {
 		
@@ -110,18 +112,47 @@ public class JeuVue {
 	}
 	
     public void creerEtBougerCercle() {
-    	Circle r = new Circle(3);
-      //  int posX = 0;
+    	/*Circle r = new Circle(5);
+    	int posX = 16*(0+1)+8;//0eme x et y blanc?
+    	int posY = 16*(5+1)+8;
         r.setFill(Color.RED);
         r.setId("rond");
-        r.setTranslateX(0);
-        r.setTranslateY(0);
-        paneMap.getChildren().add(r);
+        r.setTranslateX(posX);
+        r.setTranslateY(posY);
+        paneEnnemis.getChildren().add(r);
+        */
+        
+        Circle r = new Circle(5);
+    	int tileX = 0;
+    	int tileY = 8;
+    	int pixX = 16*(tileX+1)+8;
+    	int pixY = 16*(tileY+1)+8;
+        r.setFill(Color.RED);
+        r.setId("rond");
+        r.setTranslateX(pixX);
+        r.setTranslateY(pixY);
+        paneEnnemis.getChildren().add(r);
+        
+    /*    while (jeu.getCodeUneTuile(tileX, tileY) == 386) {
+        	if (jeu.getCodeUneTuile(tileX, tileY+1) == 386 ) {        		
+        		r.setTranslateX(pixY+16);
+        		tileY++;
+        	}
+        	else if(jeu.getCodeUneTuile(tileX+1, tileY) == 386 ) {
+        		r.setTranslateY(pixX+16);
+        		tileX++;
+        	}
+        }
+
     
+        *   r.translateXProperty().bind(a.xProperty());
+        r.translateYProperty().bind(a.yProperty());
         
+        posX+=16;
+        posY+=16;
+
         
-        
-        /*   for (int i = 0; i < paneEnnemis.getChildren().size(); i++) {
+           for (int i = 0; i < paneEnnemis.getChildren().size(); i++) {
             if (this.) == 0) {
                 paneEnnemis.getChildren().get(i).setTranslateX(paneEnnemis.getChildren().get(i).getTranslateX() + 16);
                 paneEnnemis.getChildren().get(i).setTranslateY(paneEnnemis.getChildren().get(i).getTranslateY());

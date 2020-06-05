@@ -54,8 +54,11 @@ public class Controleur implements Initializable {
 		JeuVue jeuvue = new JeuVue(jeu, paneMap);
 		JeuVue jeuVueEnnemis = new JeuVue(jeu,paneEnnemis);
 		jeuvue.afficherMap();
+		System.out.println("affichermap");
 		initAnimation();
+		System.out.println("initAnimation");
 		jeuVueEnnemis.creerEtBougerCercle();
+		System.out.println("creerbiugercerlcl");
 		gameLoop.play();
 	}
   
