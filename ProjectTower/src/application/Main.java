@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import application.controleur.Controleur;
 import application.modele.Jeu;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -25,7 +26,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root =  FXMLLoader.load(getClass().getResource("/application/vue/ProjectTowerD.fxml"));		
-			Scene scene = new Scene(root,670,507);
+			Scene scene = new Scene(root,912,672);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
