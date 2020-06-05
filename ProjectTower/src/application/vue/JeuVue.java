@@ -119,7 +119,7 @@ public class JeuVue {
         r.setId("rond");
         r.setTranslateX(posX);
         r.setTranslateY(posY);
-        paneEnnemis.getChildren().add(r);
+        paneEnnemis.getChildren().add(r);ljb
         */
         
         Circle r = new Circle(5);

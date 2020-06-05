@@ -83,6 +83,7 @@ public class Controleur implements Initializable {
                     temps++;
                 }));
         gameLoop.getKeyFrames().add(kf);
+       // k	rgfouz
 	}
 
 	@SuppressWarnings("unused")
