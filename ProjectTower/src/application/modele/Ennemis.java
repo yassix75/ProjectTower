@@ -2,82 +2,96 @@ package application.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.ImageView;
 
-public abstract class Ennemis {
-	protected IntegerProperty xIntegerProperty;
-	protected IntegerProperty yIntegerProperty;
+public /*abstract*/ class Ennemis {
+	protected IntegerProperty x, y;
 	protected Jeu jeu;//plateau
-	protected int pv;
-	protected int pa;
-	protected int vit;//vitesse
-	private SimpleIntegerProperty x;
-	private SimpleIntegerProperty y;
+	protected int pv, vit;
+						//vitesse	
 	private String id;
+	//private ImageView iv1;
+	
 	public static int compteur = 0;//iteration de  int pour lattribution d'ID(je ne sais pas si ya besoin, au cas ou)
 
-	public Ennemis(int x, int y, int v, Jeu jeu,int pv) {
+	public Ennemis(int x, int y, Jeu jeu,int pv, int vit) {
 		this.pv=pv;
-		this.x= new SimpleIntegerProperty();
+		this.x = new SimpleIntegerProperty();
 		this.x.set(x);
 		this.y = new SimpleIntegerProperty();
 		this.y.set(y);
 		this.vit = vit;
 		this.jeu=jeu;	
+		
 		this.id="E"+compteur;
 		compteur++;
 	}
-	public IntegerProperty getYProperty() {
-		return this.y;
+	
+	public Ennemis(Jeu jeu,int pv, int vit/*, String URL*/) {
+		this.pv=pv;
+		this.vit = vit;
+		this.jeu=jeu;	
+	//	this.iv1 =  new ImageView("file:src/application/vue/" + URL);
+		this.id="E"+compteur;
+		compteur++;
+	}
+	
+	public int getX() {
+		return x.getValue();
+	}
+
+	public void setX(int x) {
+		this.x.set(x); 
+	}
+	
+	public int getY() {
+		return y.getValue();
+	}
+
+	public void setY(int y) {
+		this.y.set(y); 
 	}
 	
 	public IntegerProperty getXProperty() {
 		return this.x;
 	}
-	
-	public void setX(int x) {
-		this.x = x;
+
+	public IntegerProperty getYProperty() {
+		return this.y;
 	}
 	
-	public int getY() {
-		return y;
+	public int getPv() {
+		return this.pv;
 	}
 	
-	public void setY(int y) {
-		this.y = y;
+	public void setPv(int pv) {
+		this.pv = pv;
 	}
 	
-	public int getForce() {
-		return force;
+	public void plusPv(int pv) {
+		this.pv += pv;
 	}
 	
-	public void setForce(int force) {
-		this.force = force;
+	public void moinsPv(int pv) {
+		this.pv -= pv;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public int getVitesse() {
-		return vitesse;
-	}
-	public void setVitesse(int vitesse) {
-		this.vitesse = vitesse;
-	}
-	public String getTypecadeau() {
-		return typecadeau;
-	}
-	public void setTypecadeau(String typecadeau) {
-		this.typecadeau = typecadeau;
-		
-	}
-	public void sedeplacer(int x1, int y1) {
-		this.x= (getX()-x1)*getVitesse();
-		this.y= (getY()-y1)*getVitesse();
 	
+	public int getVit() {
+		return this.vit;
 	}
-	public boolean est_vivant() {
-		return force>0;
+	
+	public void setVit(int vit) {
+		this.vit = vit;
 	}
+	
+	public boolean nonSatisfait() {
+		return this.pv>0;
+	}
+	
+	public void Satisfait() {
+		this.pv = 0;
+	}
+	 public String getId() {
+		 return this.id;
+	 }
 }

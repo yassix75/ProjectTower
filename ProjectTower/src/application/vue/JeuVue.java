@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.modele.Adolescent;
+import application.modele.Bebe;
+import application.modele.Enfant;
+import application.modele.Ennemis;
 import application.modele.Jeu;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
@@ -111,18 +115,31 @@ public class JeuVue {
 		paneMap.getChildren().add(tuile);
 	}
 	
-    public void creerEtBougerCercle() {
-    	/*Circle r = new Circle(5);
-    	int posX = 16*(0+1)+8;//0eme x et y blanc?
-    	int posY = 16*(5+1)+8;
-        r.setFill(Color.RED);
-        r.setId("rond");
-        r.setTranslateX(posX);
-        r.setTranslateY(posY);
-        paneEnnemis.getChildren().add(r);ljb
-        */
-        
-        Circle r = new Circle(5);
+    public void creerEnnemisChem1(Ennemis ennemi) {
+    	// a faire random entre 0 et 2 pour aleatoire apparition des ennemis
+    	String s = "file:src/application/vue/";
+    	int tileX = 0;
+    	int tileY = 8;
+    	int pixX = 16*(tileX+1)+8;
+    	int pixY = 16*(tileY+1)+8;
+    	if (ennemi instanceof Bebe) {
+    		ImageView iv1 = new ImageView(s+"EnfantG.png");
+    		paneEnnemis.getChildren().add(iv1);
+    		iv1.setTranslateX(pixX);
+            iv1.setTranslateY(pixY);
+    	}
+    	else if (ennemi instanceof Enfant) {
+    		
+    		ImageView iv1 = new ImageView(s /*"URL"*/);
+    		paneEnnemis.getChildren().add(iv1);
+    	}
+    	else if (ennemi instanceof Adolescent) {
+    		
+    		ImageView iv1 = new ImageView(s /*"URL"*/);
+    		paneEnnemis.getChildren().add(iv1);
+    	}
+
+    	/*   Circle r = new Circle(5);
     	int tileX = 0;
     	int tileY = 8;
     	int pixX = 16*(tileX+1)+8;
@@ -133,7 +150,7 @@ public class JeuVue {
         r.setTranslateY(pixY);
         paneEnnemis.getChildren().add(r);
         
-    /*    while (jeu.getCodeUneTuile(tileX, tileY) == 386) {
+        while (jeu.getCodeUneTuile(tileX, tileY) == 386) {   || while( tileY+1 !=
         	if (jeu.getCodeUneTuile(tileX, tileY+1) == 386 ) {        		
         		r.setTranslateX(pixY+16);
         		tileY++;

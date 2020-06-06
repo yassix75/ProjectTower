@@ -5,6 +5,8 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import application.modele.Bebe;
+import application.modele.Ennemis;
 import application.modele.Jeu;
 import application.vue.JeuVue;
 import javafx.animation.AnimationTimer;
@@ -51,14 +53,15 @@ public class Controleur implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.jeu = new Jeu(57, 42);
+		Ennemis bebe1 = new Bebe(jeu, 5, 2);
 		JeuVue jeuvue = new JeuVue(jeu, paneMap);
 		JeuVue jeuVueEnnemis = new JeuVue(jeu,paneEnnemis);
 		jeuvue.afficherMap();
-		System.out.println("affichermap");
+		System.out.println("affichermap ok");
 		initAnimation();
-		System.out.println("initAnimation");
-		jeuVueEnnemis.creerEtBougerCercle();
-		System.out.println("creerbiugercerlcl");
+		System.out.println("initAnimation ok");
+		jeuVueEnnemis.creerEnnemisChem1(bebe1);
+		System.out.println("creerEnenmis ok");
 		gameLoop.play();
 	}
   
