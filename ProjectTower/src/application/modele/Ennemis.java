@@ -4,8 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
 
-public /*abstract*/ class Ennemis {
-	protected IntegerProperty x, y;
+public abstract class Ennemis {
+	protected IntegerProperty xProperty, yProperty;
 	protected Jeu jeu;//plateau
 	protected int pv, vit;
 						//vitesse	
@@ -16,13 +16,12 @@ public /*abstract*/ class Ennemis {
 
 	public Ennemis(int x, int y, Jeu jeu,int pv, int vit) {
 		this.pv=pv;
-		this.x = new SimpleIntegerProperty();
-		this.x.set(x);
-		this.y = new SimpleIntegerProperty();
-		this.y.set(y);
+		this.xProperty = new SimpleIntegerProperty();
+		this.xProperty.set(x);
+		this.yProperty = new SimpleIntegerProperty();
+		this.yProperty.set(y);
 		this.vit = vit;
-		this.jeu=jeu;	
-		
+		this.jeu=jeu;			
 		this.id="E"+compteur;
 		compteur++;
 	}
@@ -35,29 +34,29 @@ public /*abstract*/ class Ennemis {
 		this.id="E"+compteur;
 		compteur++;
 	}
-	
-	public int getX() {
-		return x.getValue();
-	}
 
-	public void setX(int x) {
-		this.x.set(x); 
+	public final void setX(int x) {
+		this.xProperty.setValue(x); 
 	}
 	
-	public int getY() {
-		return y.getValue();
-	}
-
-	public void setY(int y) {
-		this.y.set(y); 
+	public final void setY(int y) {
+		this.yProperty.setValue(y); 
 	}
 	
-	public IntegerProperty getXProperty() {
-		return this.x;
+	public final int getX() {
+		return xProperty.getValue();
+	}
+	
+	public final int getY() {
+		return yProperty.getValue();
+	}
+	
+	public final IntegerProperty getXProperty() {
+		return this.xProperty;
 	}
 
-	public IntegerProperty getYProperty() {
-		return this.y;
+	public final IntegerProperty getYProperty() {
+		return this.yProperty;
 	}
 	
 	public int getPv() {
@@ -85,13 +84,17 @@ public /*abstract*/ class Ennemis {
 	}
 	
 	public boolean nonSatisfait() {
-		return this.pv>0;
+		return this.pv > 0;
 	}
 	
 	public void Satisfait() {
 		this.pv = 0;
 	}
-	 public String getId() {
+	public String getId() {
 		 return this.id;
-	 }
+	}
+	public /*abstract*/ void seDeplace() {
+		this.xProperty.setValue((this.xProperty.getValue()+1)*this.getVit());
+		this.yProperty.setValue((this.yProperty.getValue()+1)*this.getVit());
+	}
 }

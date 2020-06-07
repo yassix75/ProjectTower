@@ -6,8 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Jeu {
-	private int[][] codeTuiles = {
+	private int [][] codeTuiles = {
 			{41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,386,386,386,386,386,386,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41},
 			{41,41,41,41,41,41,41,41,41,41,38,39,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,386,386,386,386,386,386,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,38,39,41,41,41},
 			{41,41,41,41,41,41,41,41,41,41,56,57,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,386,386,386,386,386,386,41,41,41,41,41,41,41,41,41,41,38,39,41,41,41,41,41,41,41,56,57,41,41,41},
@@ -53,13 +56,28 @@ public class Jeu {
 
 	private int largeur = 57;
 	private int hauteur = 42;
+	private ArrayList<Ennemis> listEnnemis = new ArrayList <Ennemis>();
 
-	public Jeu(int largeur, int hauteur) {		
-		this.largeur = largeur;
-		this.hauteur = hauteur;
+	public Jeu(int x, int y) {		
+		this.largeur = x;
+		this.hauteur = y;
+		creationList();
 	}
 	
-	public int  getLargeur() {
+	public void creationList() {
+		this.listEnnemis.add(new Bebe(0,8,this));
+		this.listEnnemis.add(new Adolescent(25,15,this));
+		
+	}
+	public ArrayList<Ennemis> getListEnnemis() {
+		return listEnnemis;
+	}
+
+	public void setListEnnemis(ArrayList<Ennemis> listEnnemis) {
+		this.listEnnemis = listEnnemis;
+	}
+
+	public int getLargeur() {
 		return this.largeur;
 	}
 	
@@ -68,7 +86,7 @@ public class Jeu {
 	}
 	
 	public int getCodeUneTuile(int x, int y) {
-		return codeTuiles[y][x];//ziihf
+		return codeTuiles[y][x];
 	}
 }
 

@@ -9,7 +9,10 @@ import application.modele.Bebe;
 import application.modele.Enfant;
 import application.modele.Ennemis;
 import application.modele.Jeu;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -38,14 +42,21 @@ public class JeuVue {
     @FXML
     private Pane paneEnnemis;
 
+    @FXML
+    private VBox vbox;
+    
+    @FXML
+    private Button lancer;
+
     private Jeu jeu;
+
+	private Object ennemi;
     
 	public JeuVue(Jeu jeu, Pane paneMap) {
 		this.jeu = jeu;
 		this.paneMap = paneMap;
 		this.paneEnnemis = paneMap;
 	}
-	//public JeuVue(Jeu jeu, Pane paneEnnemis) {
 	
 	public void afficherMap() {
 		
@@ -115,31 +126,63 @@ public class JeuVue {
 		paneMap.getChildren().add(tuile);
 	}
 	
-    public void creerEnnemisChem1(Ennemis ennemi) {
-    	// a faire random entre 0 et 2 pour aleatoire apparition des ennemis
+    public void afficheEnnemisChem1(Ennemis ennemi) {
+    	// a faire random de tile Y = 0 et 2 (3 possibilite) pour aleatoire apparition des ennemis entre gauche-central-droite
+    	ImageView iv1 ;
+    	System.out.println("trydfgh");
     	String s = "file:src/application/vue/";
-    	int tileX = 0;
-    	int tileY = 8;
-    	int pixX = 16*(tileX+1)+8;
-    	int pixY = 16*(tileY+1)+8;
-    	if (ennemi instanceof Bebe) {
-    		ImageView iv1 = new ImageView(s+"EnfantG.png");
-    		paneEnnemis.getChildren().add(iv1);
-    		iv1.setTranslateX(pixX);
-            iv1.setTranslateY(pixY);
+    	//int tileX = ennemi.getX();
+    //	int tileY = ennemi.getY();
+    // a faire random de 4-8 (5 possibilite) pour la gauche    calcul a partir d'en haut a gauche
+    	//int pixX = (16*(tileX+1));
+    	//int pixY = (16*(tileY+1));
+    	
+    	if (ennemi instanceof Bebe) { // x = 16px y = 25px
+    		iv1 = new ImageView(s + "BebeG.png");    		
     	}
-    	else if (ennemi instanceof Enfant) {
-    		
-    		ImageView iv1 = new ImageView(s /*"URL"*/);
-    		paneEnnemis.getChildren().add(iv1);
+    	
+    	else if (ennemi instanceof Enfant) { // x=32px y=32px   		
+    		iv1 = new ImageView(s  + "EnfantG.png");   		
     	}
-    	else if (ennemi instanceof Adolescent) {
-    		
-    		ImageView iv1 = new ImageView(s /*"URL"*/);
-    		paneEnnemis.getChildren().add(iv1);
+    	
+    	else {//(ennemi instanceof Adolescent) { //prend 3 tile, y = 48px x = 39px   		
+    		iv1 = new ImageView(s + "AdoG.png");
     	}
+    	paneEnnemis.getChildren().add(iv1);
+    	//iv1.setTranslateX(pixX);
+       // iv1.setTranslateY(pixY);
+    	iv1.translateXProperty().bind(ennemi.getXProperty().multiply(16));
+    	iv1.translateYProperty().bind(ennemi.getYProperty().multiply(16));
+    	/* while (jeu.getCodeUneTuile(tileX, tileY.add(1)) == 17) {
+         	if (jeu.getCodeUneTuile(tileX, tileY.add(1)) == 386 ) {        		
+         		iv1.setTranslateX(pixY.add(16));
+         		tileY.add(1);
+         	}
+         	else if(jeu.getCodeUneTuile(tileX+1, tileY) == 386 ) {
+         		iv1.setTranslateY(pixX.add(16));
+         		tileX.add(1);
+         	}
+         }
+    
+    	iv1.setId(ennemi.getId());
+    
+    	paneEnnemis.getChildren().add(iv1);
+    	
+    	iv1.setTranslateX(pixX);
+        iv1.setTranslateY(pixY);
+        
+        while (jeu.getCodeUneTuile(tileX, tileY.add(1)) == 17) {
+        	if (jeu.getCodeUneTuile(tileX, tileY.add(1)) == 386 ) {        		
+        		iv1.setTranslateX(pixY.add(16));
+        		tileY.add(1);
+        	}
+        	else /*if(jeu.getCodeUneTuile(tileX+1, tileY) == 386 ) {
+        		iv1.setTranslateY(pixX.add(16));
+        		tileX.add(1);
+        	}
+        }
 
-    	/*   Circle r = new Circle(5);
+    	  Circle r = new Circle(5);
     	int tileX = 0;
     	int tileY = 8;
     	int pixX = 16*(tileX+1)+8;
@@ -150,7 +193,7 @@ public class JeuVue {
         r.setTranslateY(pixY);
         paneEnnemis.getChildren().add(r);
         
-        while (jeu.getCodeUneTuile(tileX, tileY) == 386) {   || while( tileY+1 !=
+        while (jeu.getCodeUneTuile(tileX, tileY) == 386) {  // || while( tileY+1 !=
         	if (jeu.getCodeUneTuile(tileX, tileY+1) == 386 ) {        		
         		r.setTranslateX(pixY+16);
         		tileY++;
@@ -159,10 +202,8 @@ public class JeuVue {
         		r.setTranslateY(pixX+16);
         		tileX++;
         	}
-        }
-
-    
-        *   r.translateXProperty().bind(a.xProperty());
+        } 
+          r.translateXProperty().bind(a.xProperty());
         r.translateYProperty().bind(a.yProperty());
         
         posX+=16;

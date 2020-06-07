@@ -2,8 +2,8 @@ package application.modele;
 
 public class Bebe extends Ennemis {
 
-	public Bebe(Jeu jeu, int pv, int vit) {
-		super(jeu, 5, 2/*, "bebe.png"*/);
+	public Bebe(int x, int y, Jeu jeu) {
+		super(x, y, jeu, 5, 1/*, "bebe.png"*/);
 	}
 	
 	/*public void moinsPv(Bebe bebe) {

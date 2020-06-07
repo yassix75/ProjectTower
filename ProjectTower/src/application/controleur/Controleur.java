@@ -13,6 +13,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -43,29 +45,45 @@ public class Controleur implements Initializable {
     @FXML
     private Pane paneEnnemis;
 
+    @FXML
+    private VBox vbox;
+    
+    @FXML
+    private Button lancer;
 
     private Timeline gameLoop;
 	
 	private int temps;
     
 	private Jeu jeu;
+	
+	
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.jeu = new Jeu(57, 42);
-		Ennemis bebe1 = new Bebe(jeu, 5, 2);
 		JeuVue jeuvue = new JeuVue(jeu, paneMap);
 		JeuVue jeuVueEnnemis = new JeuVue(jeu,paneEnnemis);
 		jeuvue.afficherMap();
 		System.out.println("affichermap ok");
+		System.out.println(this.jeu.getListEnnemis());
+		for ( int i =0;i< this.jeu.getListEnnemis().size(); i++)
+			jeuVueEnnemis.afficheEnnemisChem1(this.jeu.getListEnnemis().get(i));
+		
+			System.out.println("creerEnenmis ok");
 		initAnimation();
 		System.out.println("initAnimation ok");
-		jeuVueEnnemis.creerEnnemisChem1(bebe1);
-		System.out.println("creerEnenmis ok");
+		
 		gameLoop.play();
 	}
+    
+    @FXML
+	 void Lancer(ActionEvent event) {
+		 System.out.println("Appuie sur Lancer");
+	 }
   
     private void initAnimation() {
+    	
     	gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -86,10 +104,9 @@ public class Controleur implements Initializable {
                     temps++;
                 }));
         gameLoop.getKeyFrames().add(kf);
-       // k	rgfouz
 	}
-
-	@SuppressWarnings("unused")
 	private void unTour() {
+		for ( int i =0;i< this.jeu.getListEnnemis().size(); i++)
+			this.jeu.getListEnnemis().get(i).seDeplace();
 	 }
 }
