@@ -122,5 +122,5 @@ public abstract class Ennemis {
 	public boolean atteintMaison() {
 		System.out.println(this.getY());
 		return (this.getY() == 30);
-	}
+	}//oui
 }
