@@ -13,11 +13,12 @@
       <Label text="TOWER DEFENSE NTYM" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <Pane fx:id="panePrem" prefHeight="337.0" prefWidth="509.0" BorderPane.alignment="CENTER_LEFT">
+      <Pane fx:id="panePrem" prefHeight="383.0" prefWidth="500.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <TilePane fx:id="mapTiledPane" prefHeight="380.0" prefWidth="600.0" />
-            <Pane fx:id="paneMap" prefHeight="315.0" prefWidth="500.0" />
-            <Pane fx:id="paneEnnemis" prefHeight="315.0" prefWidth="500.0" />
+            <Pane fx:id="paneMap" prefHeight="383.0" prefWidth="500.0" />
+            <Pane fx:id="paneEnnemis" prefHeight="383.0" prefWidth="500.0" />
+            <Pane fx:id="paneTours" prefHeight="383.0" prefWidth="500.0" />
          </children>
       </Pane>
    </center>

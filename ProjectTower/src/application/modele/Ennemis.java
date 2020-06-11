@@ -2,39 +2,27 @@ package application.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.ImageView;
 
 public abstract class Ennemis {
+
 	protected IntegerProperty xProperty, yProperty;
 	protected Jeu jeu;//plateau
 	protected int pv, vit;
-						//vitesse	
-	private String id;
-	//private ImageView iv1;
+	protected String id;
+	private int deplacementx;
+	private int deplacementy;
+	public static int compteur = 0;//iteration de  int pour lattribution d'ID(HashMap avec type d'ennemi + Id)
 	
-	public static int compteur = 0;//iteration de  int pour lattribution d'ID(je ne sais pas si ya besoin, au cas ou)
-
-	public Ennemis(int x, int y, Jeu jeu,int pv, int vit) {
-		this.pv=pv;
-		this.xProperty = new SimpleIntegerProperty();
-		this.xProperty.set(x);
-		this.yProperty = new SimpleIntegerProperty();
-		this.yProperty.set(y);
-		this.vit = vit;
-		this.jeu=jeu;			
-		this.id="E"+compteur;
-		compteur++;
+	public Ennemis(Jeu jeu,int pv, double vit) {
+		this.jeu = jeu;
+		this.deplacementx = 1;
+		this.deplacementy = 1;
+		this.pv = pv;
+		this.vit = (int) vit;	
+		this.xProperty = new SimpleIntegerProperty(0);		
+		this.yProperty = new SimpleIntegerProperty(7);
 	}
 	
-	public Ennemis(Jeu jeu,int pv, int vit/*, String URL*/) {
-		this.pv=pv;
-		this.vit = vit;
-		this.jeu=jeu;	
-	//	this.iv1 =  new ImageView("file:src/application/vue/" + URL);
-		this.id="E"+compteur;
-		compteur++;
-	}
-
 	public final void setX(int x) {
 		this.xProperty.setValue(x); 
 	}
@@ -83,18 +71,56 @@ public abstract class Ennemis {
 		this.vit = vit;
 	}
 	
-	public boolean nonSatisfait() {
-		return this.pv > 0;
+	public boolean Satisfait() {
+		return this.pv <= 0;
 	}
 	
-	public void Satisfait() {
-		this.pv = 0;
-	}
 	public String getId() {
 		 return this.id;
 	}
-	public /*abstract*/ void seDeplace() {
-		this.xProperty.setValue((this.xProperty.getValue()+1)*this.getVit());
-		this.yProperty.setValue((this.yProperty.getValue()+1)*this.getVit());
+	
+	public void seDeplaceG() {
+		this.setX(this.getX()-this.deplacementx);
+	}
+	
+	public void seDeplaceB() {
+		this.setY( this.getY() + this.deplacementy);
+		
+	}
+	
+	public void seDeplaceD() {
+		  this.setX( this.getX() + this.deplacementx);
+		
+	}
+	
+	public void seDeplace() {	
+		if ( this.getX() < 42 && this.getY() == 7) { //deplace vers la droite, commence a x = 0 a x = 41
+			this.seDeplaceD();
+			System.out.println(this.getId());
+			System.out.println("Droite");
+		}
+		if ( this.getX() == 28 && this.getY() == 7) { //deplace vers la droite, if pour gerer le "conflit" entre droite et bas2
+			this.seDeplaceD();
+			System.out.println(this.getId());
+			System.out.println("Droite");
+		}
+		if (this.getX() == 41 && this.getY() < 19) { //deplace vers bas1, commence a y = 7 a y = 19
+			this.seDeplaceB();		
+			System.out.println("Bas1");																							//deplace vers le bas2, commence a y = a y = 
+		}
+		if (this.getY() == 19 && this.getX() < 42) { //deplace vers le bas, commence a x = 41 a x = 28
+			this.seDeplaceG();
+			System.out.println(this.getId());
+			System.out.println("Gauche");
+		}
+		if (this.getY() < 30 && this.getX() == 28) { //this.getX() == 28 && this.getY() == 19
+			this.seDeplaceB();		
+			System.out.println("Bas2");
+		}
+	}	
+	
+	public boolean atteintMaison() {
+		System.out.println(this.getY());
+		return (this.getY() == 30);
 	}
 }
