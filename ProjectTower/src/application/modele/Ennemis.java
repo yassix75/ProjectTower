@@ -7,27 +7,28 @@ public abstract class Ennemis {
 
 	protected IntegerProperty xProperty, yProperty;
 	protected Jeu jeu;//plateau
-	protected int pv, vit;
+	protected int pv;
+	protected int vit;
 	protected String id;
 	private int deplacementx;
 	private int deplacementy;
 	public static int compteur = 0;//iteration de  int pour lattribution d'ID(HashMap avec type d'ennemi + Id)
 	
-	public Ennemis(Jeu jeu,int pv, double vit) {
+	public Ennemis(Jeu jeu,int pv, int vit) {
 		this.jeu = jeu;
 		this.deplacementx = 1;
 		this.deplacementy = 1;
 		this.pv = pv;
-		this.vit = (int) vit;	
+		this.vit = vit;	
 		this.xProperty = new SimpleIntegerProperty(0);		
 		this.yProperty = new SimpleIntegerProperty(7);
 	}
 	
-	public final void setX(int x) {
-		this.xProperty.setValue(x); 
+	public final void setX(double d) {
+		this.xProperty.setValue(d); 
 	}
 	
-	public final void setY(int y) {
+	public final void setY(double y) {
 		this.yProperty.setValue(y); 
 	}
 	
@@ -80,16 +81,16 @@ public abstract class Ennemis {
 	}
 	
 	public void seDeplaceG() {
-		this.setX(this.getX()-this.deplacementx);
+		this.setX(this.getX()-this.deplacementx*this.getVit());
 	}
 	
 	public void seDeplaceB() {
-		this.setY( this.getY() + this.deplacementy);
+		this.setY(this.getY() + this.deplacementy*this.getVit());
 		
 	}
 	
 	public void seDeplaceD() {
-		  this.setX( this.getX() + this.deplacementx);
+		this.setX(this.getX() + this.deplacementx*this.getVit());
 		
 	}
 	

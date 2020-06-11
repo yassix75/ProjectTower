@@ -58,11 +58,11 @@ public class Jeu {
 		this.largeur = x;
 		this.hauteur = y;
 		this.listEnnemis = new ArrayList<Ennemis>();
-		this.nbEnnemi=0;
+		this.nbEnnemi = 0;
 	}
 	
 	public void creationNouveauEnnemi() {	
-		if(nbEnnemi<100) {
+		if(nbEnnemi < 4) {
 			int e  = getRandomInt(1, 3);
 			Ennemis ennemi;		
 			switch(e) {
@@ -113,7 +113,6 @@ public class Jeu {
 }
 /*
  * 
- * 
- * 																	"rendons les choses compliqués, simples."
+ * 																"rendons les choses compliqués, simples."
  * 
 */

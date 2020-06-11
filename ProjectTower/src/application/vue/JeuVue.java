@@ -57,7 +57,7 @@ public class JeuVue {
 		lienImage.put(68, "TuileMmur68.png");
 		lienImage.put(67, "TuileMmur67.png");
 		lienImage.put(17, "TuileMtoit17.png");
-		lienImage.put(41, "TuileNeige41.png");//defaut
+		lienImage.put(41, "TuileNeige41.png");
 
 		return lienImage;
 	}
@@ -79,8 +79,6 @@ public class JeuVue {
 	
 	public void afficheTuile(String URL,int x, int y) {
 		ImageView tuile = new ImageView("file:src/application/vue/" + URL);
-		tuile.setFitHeight(16);
-		tuile.setFitWidth(tuile.getFitHeight());
 		tuile.setTranslateX(16*x); 
         tuile.setTranslateY(tuile.getTranslateX()*y/x);
 		paneMap.getChildren().add(tuile);
@@ -105,7 +103,7 @@ public class JeuVue {
     	}
     	iv1.setId(lastEnnemis.getId());
     	paneEnnemis.getChildren().add(iv1);
-    	System.out.println(lastEnnemis.getXProperty());// => affiche dans la console "IntegerProperty [value: 0]"
+    	System.out.println(lastEnnemis.getXProperty());
     	iv1.xProperty().bind((lastEnnemis.getXProperty().multiply(16)));//(nombredepixel par mouv)
     	iv1.yProperty().bind((lastEnnemis.getYProperty().multiply(16)));
     }
