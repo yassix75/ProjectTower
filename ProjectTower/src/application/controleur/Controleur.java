@@ -29,7 +29,7 @@ public class Controleur implements Initializable {
     private Pane paneMap;
     
     @FXML
-    private Pane paneTour;
+    private Pane paneTours;
 
     @FXML
     private Pane paneEnnemis;
@@ -43,20 +43,20 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
 	
 	private int nbTours;
-    
-	private boolean jeuEstFini;
-	
+   
 	private Jeu jeu;
 	
+	private JeuVue jeuVueEnnemis;
+	
+	private JeuVue jeuvueMap;
+	
     @Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-    	this.jeuEstFini=false;
+	public void initialize(URL arg0, ResourceBundle arg1) {   	
 		this.jeu = new Jeu(57, 42);
-		JeuVue jeuvue = new JeuVue(jeu, paneMap);
-		jeuvue.afficherMap();
-		System.out.println("affichermap ok");		
-		initAnimation();
-		System.out.println("initAnimation ok");		
+		this.jeuvueMap = new JeuVue(jeu, paneMap);
+		this.jeuVueEnnemis = new JeuVue(jeu, paneEnnemis);
+		jeuvueMap.afficherMap();		
+		gameLoop();	
 		gameLoop.play();
 	}
     
@@ -65,51 +65,24 @@ public class Controleur implements Initializable {
 		 System.out.println("Appuie sur Lancer");
 	 }
 
-    private void initAnimation() {  
+    private void gameLoop() {  
     	gameLoop = new Timeline();
     	nbTours = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame kf = new KeyFrame( //(nbre de frame par seconde)
-                Duration.seconds(0.2),//slow = +
+        KeyFrame kf = new KeyFrame(
+                Duration.seconds(0.25),//slow = +
                 (e -> {
-                    if (nbTours == 500 || this.jeuEstFini) {
-                        System.out.println("fini");
+                    if (nbTours == 500 || jeu.jeuEstFini) {
+                    	System.out.println("*********************************");
+                        System.out.println("GAME OVER");//fin de jeu
+                        System.out.println("*********************************");
                         gameLoop.stop();
                     } else {			
                        System.out.println("tour" + nbTours);                       
-                       unTour(nbTours);        
+                       jeu.unTour(nbTours, jeuVueEnnemis);        
                     }
                     nbTours++;
                 }));
         gameLoop.getKeyFrames().add(kf);
 	}
-    
-	private void unTour(int nbTour) {
-		JeuVue jeuVueEnnemis = new JeuVue(this.jeu, paneEnnemis);
-		int rdm = Jeu.getRandomInt(1, 4);
-		
-		if (nbTour % rdm == 0) {
-			System.out.println(this.jeu.getListEnnemis());	
-			this.jeu.creationNouveauEnnemi();
-			System.out.println("liste crée");
-			jeuVueEnnemis.afficheEnnemis(this.jeu.getListEnnemis());
-			System.out.println("affiche ennemis de la liste");
-		}
-		for (Ennemis ennemis : this.jeu.getListEnnemis()) {
-			ennemis.seDeplace();
-			if(ennemis.atteintMaison()) {
-				this.jeuEstFini=true;
-			}
-		}
-		System.out.println("*********************************");
-		System.out.println(this.jeuEstFini);
-		/*
-		for(int i = 0; i < this.jeu.getListEnnemis().size(); i++) {   ///////verif pv de ennemi
-			ennemi = this.jeu.getListEnnemis().get(i);
-			if (ennemi.Satisfait()) {
-				this.jeu.getListEnnemis().remove(i);
-			}
-		System.out.println(" loop");			
-		}*/
-	}
-}
+}   

@@ -19,9 +19,6 @@ public class JeuVue {
     private Pane panePrem;
 
     @FXML
-    private TilePane mapTiledPane;
-
-    @FXML
     private Pane paneMap;
 
     @FXML
@@ -36,6 +33,8 @@ public class JeuVue {
     private Jeu jeu;
     
     private HashMap <Integer, String> dictionnaire;
+
+	private Object paneTour;
     
 	public JeuVue(Jeu jeu, Pane paneMap) {
 		this.jeu = jeu;
@@ -87,24 +86,52 @@ public class JeuVue {
     public void afficheEnnemis(ArrayList<Ennemis> listEnnemis) {
     	Ennemis lastEnnemis = listEnnemis.get(listEnnemis.size()-1);
     	ImageView iv1 ;
-    	System.out.println("affiche ennemi");
     	String s = "file:src/application/vue/";
     	
-    	if (lastEnnemis instanceof Bebe) { // x = 16px y = 25px
+    	if (lastEnnemis instanceof Bebe) { 
     		iv1 = new ImageView(s + "BebeG.png");    		
     	}
     	
-    	else if (lastEnnemis instanceof Enfant) { // x=32px y=32px   		
+    	else if (lastEnnemis instanceof Enfant) {  		
     		iv1 = new ImageView(s  + "EnfantG.png");   		
     	}
     	
-    	else {//(ennemi instanceof Adolescent) { //prend 3 tile, y = 48px x = 39px   		
+    	else {//(ennemi instanceof Adolescent) {		
     		iv1 = new ImageView(s + "AdoG.png");
     	}
+    	
     	iv1.setId(lastEnnemis.getId());
     	paneEnnemis.getChildren().add(iv1);
-    	System.out.println(lastEnnemis.getXProperty());
-    	iv1.xProperty().bind((lastEnnemis.getXProperty().multiply(16)));//(nombredepixel par mouv)
-    	iv1.yProperty().bind((lastEnnemis.getYProperty().multiply(16)));
+    	iv1.xProperty().setValue(iv1.getX()*16);
+    	iv1.yProperty().setValue(iv1.getY()*16);
+    	iv1.xProperty().bind((lastEnnemis.getXProperty()/*.multiply(16)*/));//(nombredepixel par mouv)
+    	iv1.yProperty().bind((lastEnnemis.getYProperty()/*.multiply(16)*/));
     }
+    
+    public void tourelleSprite(Tours tour, double x, double y) {
+		ImageView iv2;
+
+		if (tour instanceof TourelleArcher ) {
+			iv2 = new ImageView("file:src/application/vue/archer2.png");
+			iv2.setFitWidth(80);
+			iv2.setPreserveRatio(true);
+		} 
+		
+		else if (tour instanceof TourelleMortier) {
+			iv2 = new ImageView("textures/mortier.png");
+			iv2.setFitWidth(50);
+			iv2.setPreserveRatio(true);
+			
+		}
+		
+		else {
+			iv2 = null;
+		}
+
+		iv2.setTranslateX(x-16);
+		iv2.setTranslateY(y-16);
+		this.paneTour.getChildren().add(iv2);
+
+	}
+
 }
