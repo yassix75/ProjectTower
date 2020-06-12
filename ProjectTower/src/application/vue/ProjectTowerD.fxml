@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.Controleur">
    <top>
       <Label text="TOWER DEFENSE NTYM" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <TilePane fx:id="mapTiledPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="panePrem" prefHeight="383.0" prefWidth="500.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" TilePane.alignment="CENTER" />
-         </children></TilePane>
+            <Pane fx:id="paneMap" prefHeight="383.0" prefWidth="500.0" />
+            <Pane fx:id="paneEnnemis" prefHeight="383.0" prefWidth="500.0" />
+            <Pane fx:id="paneTours" prefHeight="383.0" prefWidth="500.0" />
+         </children>
+      </Pane>
    </center>
+   <right>
+      <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Lancer" text="Lancer" textAlignment="CENTER" textFill="#c71414">
+               <font>
+                  <Font name="Bodoni MT Black" size="14.0" />
+               </font>
+            </Button>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <RadioButton fx:id="ajouterTourelle" mnemonicParsing="false" text="Mortier">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="Tourelle" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="bouttonarcher" mnemonicParsing="false" text="Archer" toggleGroup="$Tourelle" />
+                  <RadioButton fx:id="buttonsorcier" mnemonicParsing="false" text="Sorcier" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>
