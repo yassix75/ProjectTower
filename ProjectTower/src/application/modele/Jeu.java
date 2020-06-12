@@ -2,12 +2,9 @@ package application.modele;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import application.vue.JeuVue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 public class Jeu {
 
@@ -60,6 +57,7 @@ public class Jeu {
 	private ArrayList<Ennemis> listEnnemis ;
 	private static Random random = new Random();
 	private int nbEnnemi ;
+	public boolean jeuEstFini = false;
 	private ObservableList<Projectile> listeProjectile;
 	private ObservableList<Tours> listeTours;
 
@@ -71,10 +69,12 @@ public class Jeu {
 		this.nbEnnemi=0;
 		this.listeTours= FXCollections.observableArrayList() ;
 		this.listeProjectile= FXCollections.observableArrayList() ;
+		
 	}
 	
 	public void creationNouveauEnnemi() {	
-		if(nbEnnemi < 5) {
+		int rdmEnnemi = getRandomInt(5, 60);
+		if(nbEnnemi < rdmEnnemi) {
 			int e  = getRandomInt(1, 3);
 			Ennemis ennemi;		
 			switch(e) {
@@ -85,7 +85,6 @@ public class Jeu {
 				break;
 			case 2:
 				ennemi = new Adolescent(this);
-				System.out.println(ennemi);
 				this.listEnnemis.add(ennemi);
 				System.out.println("ajout Adolescent");
 				break;
@@ -139,19 +138,17 @@ public class Jeu {
         for(int i = 0; i < listeTours.size(); i++) {
         	Tours a= listeTours.get(i);
         	//System.out.println( listeActeur.get(i).getId()+ " va bouger");
-        	a.agit();
+        	a.attaque();
         }
 	}
 
 	public void tourDeJeuProjectile() {
         for (int j=0; j< listeProjectile.size(); j++) {
         	Projectile p= listeProjectile.get(j);
-        	//p.agit();
         }
     }
 
-	public double placerTourelleMilieuTuileCoordonnee(double coordonnee) {
-		
+	public double placerTourelleMilieuTuileCoordonnee(double coordonnee) {	
 		double newX;		
 		if(coordonnee %16 > 8) {		
 			newX= coordonnee-(coordonnee%16 - 8);
@@ -165,4 +162,23 @@ public class Jeu {
 		
 		return newX;
 	}
+	
+	public void unTour(int nbTour, JeuVue jeuVueEnnemis) {
+        int espacement = Jeu.getRandomInt(3,5);
+        if (nbTour % espacement == 0) {
+            System.out.println(getListEnnemis());
+            this.creationNouveauEnnemi();
+            System.out.println("Les ennemis ne vont pas tarder à vous attaquer");
+            jeuVueEnnemis.afficheEnnemis(this.getListEnnemis());
+        }
+        for (Ennemis ennemis : this.getListEnnemis()) {
+            ennemis.seDeplace();
+            if(ennemis.atteintMaison()) {
+                this.jeuEstFini=true;
+            }
+        }
+        for (Tours tour :this.listeTours) {
+            tour.attaque();
+        }
+    }
 }

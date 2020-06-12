@@ -3,13 +3,7 @@ public class Adolescent extends Ennemis {
 
 	public Adolescent(Jeu jeu) {
 		super(jeu, 20,1);
-		super.id = "#A"+compteur;//cherche id ds la superclasse
+		super.id = "#A"+compteur;
 		compteur++;
-	}
-
-	@Override
-	protected void decrementerPv(Object attaque) {
-		// TODO Auto-generated method stub
-		
 	}
 }

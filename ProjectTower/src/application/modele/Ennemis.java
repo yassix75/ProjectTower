@@ -7,18 +7,19 @@ public abstract class Ennemis {
 
 	protected IntegerProperty xProperty, yProperty;
 	protected Jeu jeu;//plateau
-	protected int pv, vit;
+	protected int pv;
+	protected int vit;
 	protected String id;
-	private int deplacementx;
-	private int deplacementy;
+	private int deplacementX;
+	private int deplacementY;
 	public static int compteur = 0;//iteration de  int pour lattribution d'ID(HashMap avec type d'ennemi + Id)
 	
-	public Ennemis(Jeu jeu,int pv, double vit) {
+	public Ennemis(Jeu jeu,int pv, int vit) {
 		this.jeu = jeu;
-		this.deplacementx = 1;
-		this.deplacementy = 1;
+		this.deplacementX = 1;
+		this.deplacementY = 1;
 		this.pv = pv;
-		this.vit = (int) vit;	
+		this.vit = vit;	
 		this.xProperty = new SimpleIntegerProperty(0);		
 		this.yProperty = new SimpleIntegerProperty(7);
 	}
@@ -55,11 +56,10 @@ public abstract class Ennemis {
 		this.pv = pv;
 	}
 	
-	public void plusPv(int pv) {
-		this.pv += pv;
-	}
-	
-	public void moinsPv(int pv) {
+	public void moinsPv(int pv) {//5-2
+		if(pv > this.pv) {
+			pv = this.pv;
+		}
 		this.pv -= pv;
 	}
 	
@@ -80,50 +80,51 @@ public abstract class Ennemis {
 	}
 	
 	public void seDeplaceG() {
-		this.setX(this.getX()-this.deplacementx);
+		this.setX(this.getX()-this.deplacementX*this.getVit());
 	}
 	
 	public void seDeplaceB() {
-		this.setY( this.getY() + this.deplacementy);
+		this.setY(this.getY() + this.deplacementY*this.getVit());
 		
 	}
 	
 	public void seDeplaceD() {
-		  this.setX( this.getX() + this.deplacementx);
+		this.setX(this.getX() + this.deplacementX*this.getVit());
 		
 	}
 	
 	public void seDeplace() {	
-		if ( this.getX() < 42 && this.getY() == 7) { //deplace vers la droite, commence a x = 0 a x = 41
-			this.seDeplaceD();
-			//System.out.println(this.getId());
-			//System.out.println("Droite");
-		}
-		if ( this.getX() == 28 && this.getY() == 7) { //deplace vers la droite, if pour gerer le "conflit" entre droite et bas2
-			this.seDeplaceD();
-			//System.out.println(this.getId());
-			//System.out.println("Droite");
-		}
-		if (this.getX() == 41 && this.getY() < 19) { //deplace vers bas1, commence a y = 7 a y = 19
-			this.seDeplaceB();		
-			//System.out.println("Bas1");																							//deplace vers le bas2, commence a y = a y = 
-		}
-		if (this.getY() == 19 && this.getX() < 42) { //deplace vers le bas, commence a x = 41 a x = 28
-			this.seDeplaceG();
-			//System.out.println(this.getId());
-			//System.out.println("Gauche");
-		}
-		if (this.getY() < 30 && this.getX() == 28) { //this.getX() == 28 && this.getY() == 19
-			this.seDeplaceB();
-			//System.out.println("Bas2");
+		if(this.pv>0){	     
+			
+			if ( this.getX() < 42 && this.getY() == 7) {
+				this.seDeplaceD();
+				System.out.println(this.getId() + " se dirige vers la droite");
+			}
+			if ( this.getX() == 28 && this.getY() == 7) { 
+				this.seDeplaceD();
+				System.out.println(this.getId() + " se dirige vers la droite");
+			}
+			if (this.getX() == 41 && this.getY() < 19) { 
+				this.seDeplaceB();		
+				System.out.println(this.getId() + " va en bas");																							//deplace vers le bas2, commence a y = a y = 
+			}
+			if (this.getY() == 19 && this.getX() < 42) {
+				this.seDeplaceG();
+				System.out.println(this.getId() + " se dirige vers la gauche");
+			}
+			if (this.getY() < 30 && this.getX() == 28) {
+				this.seDeplaceB();		
+				System.out.println(this.getId() + " va en bas");
+			}
 		}
 	}	
 	
 	public boolean atteintMaison() {
-		//System.out.println(this.getY());
-		return (this.getY() == 30);
-	}//oui
+		return this.getY() == 30;
+	}
 
-
-	protected abstract void decrementerPv(Object attaque);
+	public String toString() {
+		return "pv"+pv;
+	}
+	
 }

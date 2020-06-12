@@ -6,7 +6,7 @@ import application.modele.Tours;
 
 public class Tourelle extends Tours {
 
-
+    
 	public Tourelle(double x, double y, Jeu jeu) {
 		super(x, y, jeu);
 	} 

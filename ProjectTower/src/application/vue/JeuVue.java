@@ -47,14 +47,9 @@ public class JeuVue {
 		this.paneMap = paneMap;
 		this.paneEnnemis = paneMap;
 		this.dictionnaire = creationDictionnaire();
-		this.paneTour = paneMap; 
-		
-       
+		this.paneTour = paneMap;   
 	}
-	
-	public Pane getmapPane() {
-		return this.paneMap;
-	}  
+	 
 	public HashMap <Integer,String> creationDictionnaire() {
 		HashMap< Integer, String > lienImage = new HashMap< Integer, String>();
 		lienImage.put(386, "TuileChemin386.png");
@@ -68,7 +63,7 @@ public class JeuVue {
 		lienImage.put(68, "TuileMmur68.png");
 		lienImage.put(67, "TuileMmur67.png");
 		lienImage.put(17, "TuileMtoit17.png");
-		lienImage.put(41, "TuileNeige41.png");//defaut
+		lienImage.put(41, "TuileNeige41.png");
 
 		return lienImage;
 	}
@@ -79,8 +74,7 @@ public class JeuVue {
 			for (int y = 0; y <= jeu.getHauteur()-1; y++) {
 				int leCodeTuile = jeu.getCodeUneTuile(x, y);
 				lien = this.dictionnaire.get(leCodeTuile);
-			//	TuileMbord65					65	
-				if(!this.dictionnaire.containsKey(leCodeTuile)) { // si ne trouve pas
+				if(!this.dictionnaire.containsKey(leCodeTuile)) {
 					lien = this.dictionnaire.get(41);
 				}
 				afficheTuile(lien,x,y);
@@ -98,27 +92,22 @@ public class JeuVue {
     public void afficheEnnemis(ArrayList<Ennemis> listEnnemis) {
     	Ennemis lastEnnemis = listEnnemis.get(listEnnemis.size()-1);
     	ImageView iv1 ;
-    	System.out.println("affiche ennemi");
     	String s = "file:src/application/vue/";
-    	//iv1 = new ImageView("file:src/application/vue/archer2.png");
-    	if (lastEnnemis instanceof Bebe) { // x = 16px y = 25px
+    	if (lastEnnemis instanceof Bebe) {
     		iv1 = new ImageView(s + "BebeG.png");    	
- 
     	}
     	
-    	else if (lastEnnemis instanceof Enfant) { // x=32px y=32px   		
+    	else if (lastEnnemis instanceof Enfant) {  		
     		iv1 = new ImageView(s  + "EnfantG.png");   		
     	}
     	
-    	else {//(ennemi instanceof Adolescent) { //prend 3 tile, y = 48px x = 39px   		
+    	else { 		
     		iv1 = new ImageView(s + "AdoG.png");
     	}
-    	System.out.println(iv1+"********************");// 
 
     	iv1.setId(lastEnnemis.getId());
     	paneMap.getChildren().add(iv1);
-    	//System.out.println(lastEnnemis.getXProperty());// => affiche dans la console "IntegerProperty [value: 0]"
-    	iv1.xProperty().bind((lastEnnemis.getXProperty().multiply(16)));//(nombredepixel par mouv)
+    	iv1.xProperty().bind((lastEnnemis.getXProperty().multiply(16)));
     	iv1.yProperty().bind((lastEnnemis.getYProperty().multiply(16)));
     }
     
@@ -134,18 +123,15 @@ public class JeuVue {
 		else if (tour instanceof TourelleMortier) {
 			iv2 = new ImageView("textures/mortier.png");
 			iv2.setFitWidth(50);
-			iv2.setPreserveRatio(true);
-			
+			iv2.setPreserveRatio(true);		
 		}
 		
 		else {
 			iv2 = null;
 		}
-
+		
 		iv2.setTranslateX(x-16);
 		iv2.setTranslateY(y-16);
 		this.paneTour.getChildren().add(iv2);
-
 	}
-
 }
