@@ -96,31 +96,34 @@ public abstract class Ennemis {
 	public void seDeplace() {	
 		if ( this.getX() < 42 && this.getY() == 7) { //deplace vers la droite, commence a x = 0 a x = 41
 			this.seDeplaceD();
-			System.out.println(this.getId());
-			System.out.println("Droite");
+			//System.out.println(this.getId());
+			//System.out.println("Droite");
 		}
 		if ( this.getX() == 28 && this.getY() == 7) { //deplace vers la droite, if pour gerer le "conflit" entre droite et bas2
 			this.seDeplaceD();
-			System.out.println(this.getId());
-			System.out.println("Droite");
+			//System.out.println(this.getId());
+			//System.out.println("Droite");
 		}
 		if (this.getX() == 41 && this.getY() < 19) { //deplace vers bas1, commence a y = 7 a y = 19
 			this.seDeplaceB();		
-			System.out.println("Bas1");																							//deplace vers le bas2, commence a y = a y = 
+			//System.out.println("Bas1");																							//deplace vers le bas2, commence a y = a y = 
 		}
 		if (this.getY() == 19 && this.getX() < 42) { //deplace vers le bas, commence a x = 41 a x = 28
 			this.seDeplaceG();
-			System.out.println(this.getId());
-			System.out.println("Gauche");
+			//System.out.println(this.getId());
+			//System.out.println("Gauche");
 		}
 		if (this.getY() < 30 && this.getX() == 28) { //this.getX() == 28 && this.getY() == 19
-			this.seDeplaceB();		
-			System.out.println("Bas2");
+			this.seDeplaceB();
+			//System.out.println("Bas2");
 		}
 	}	
 	
 	public boolean atteintMaison() {
-		System.out.println(this.getY());
+		//System.out.println(this.getY());
 		return (this.getY() == 30);
 	}//oui
+
+
+	protected abstract void decrementerPv(Object attaque);
 }

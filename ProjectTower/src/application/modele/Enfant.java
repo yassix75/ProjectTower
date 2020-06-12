@@ -7,4 +7,10 @@ public class Enfant extends Ennemis{
 		super.id = "#E"+compteur;//cherche id de la superclasse
 		compteur++;
 	}
+
+	@Override
+	protected void decrementerPv(Object attaque) {
+		// TODO Auto-generated method stub
+		
+	}
 }
