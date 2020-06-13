@@ -7,4 +7,10 @@ public class Bebe extends Ennemis {
 		super.id = "#B"+compteur;//cherche id de la superclasse
 		compteur++;
 	}
+
+	@Override
+	protected void decrementerPv(Object attaque) {
+		// TODO Auto-generated method stub
+		
+	}
 }

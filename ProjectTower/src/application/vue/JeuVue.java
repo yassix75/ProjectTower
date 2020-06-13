@@ -6,6 +6,9 @@ import application.modele.Bebe;
 import application.modele.Enfant;
 import application.modele.Ennemis;
 import application.modele.Jeu;
+import application.modele.TourelleArcher;
+import application.modele.TourelleMortier;
+import application.modele.Tours;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -19,6 +22,9 @@ public class JeuVue {
     private Pane panePrem;
 
     @FXML
+    private TilePane mapTiledPane;
+
+    @FXML
     private Pane paneMap;
 
     @FXML
@@ -29,20 +35,26 @@ public class JeuVue {
     
     @FXML
     private Button lancer;
-
+   
     private Jeu jeu;
     
     private HashMap <Integer, String> dictionnaire;
 
-	private Object paneTour;
+	private Pane paneTour;
     
 	public JeuVue(Jeu jeu, Pane paneMap) {
 		this.jeu = jeu;
 		this.paneMap = paneMap;
 		this.paneEnnemis = paneMap;
 		this.dictionnaire = creationDictionnaire();
+		this.paneTour = paneMap; 
+		
+       
 	}
 	
+	public Pane getmapPane() {
+		return this.paneMap;
+	}  
 	public HashMap <Integer,String> creationDictionnaire() {
 		HashMap< Integer, String > lienImage = new HashMap< Integer, String>();
 		lienImage.put(386, "TuileChemin386.png");
@@ -56,12 +68,12 @@ public class JeuVue {
 		lienImage.put(68, "TuileMmur68.png");
 		lienImage.put(67, "TuileMmur67.png");
 		lienImage.put(17, "TuileMtoit17.png");
-		lienImage.put(41, "TuileNeige41.png");
+		lienImage.put(41, "TuileNeige41.png");//defaut
 
 		return lienImage;
 	}
 
-	public void afficherMap() {
+	public void afficherMap(Jeu jeu) {
 		String lien ;
 		for(int x = 0; x <= jeu.getLargeur()-1; x++ ) {
 			for (int y = 0; y <= jeu.getHauteur()-1; y++) {
@@ -86,26 +98,28 @@ public class JeuVue {
     public void afficheEnnemis(ArrayList<Ennemis> listEnnemis) {
     	Ennemis lastEnnemis = listEnnemis.get(listEnnemis.size()-1);
     	ImageView iv1 ;
+    	System.out.println("affiche ennemi");
     	String s = "file:src/application/vue/";
-    	
-    	if (lastEnnemis instanceof Bebe) { 
-    		iv1 = new ImageView(s + "BebeG.png");    		
+    	//iv1 = new ImageView("file:src/application/vue/archer2.png");
+    	if (lastEnnemis instanceof Bebe) { // x = 16px y = 25px
+    		iv1 = new ImageView(s + "BebeG.png");    	
+ 
     	}
     	
-    	else if (lastEnnemis instanceof Enfant) {  		
+    	else if (lastEnnemis instanceof Enfant) { // x=32px y=32px   		
     		iv1 = new ImageView(s  + "EnfantG.png");   		
     	}
     	
-    	else {//(ennemi instanceof Adolescent) {		
+    	else {//(ennemi instanceof Adolescent) { //prend 3 tile, y = 48px x = 39px   		
     		iv1 = new ImageView(s + "AdoG.png");
     	}
-    	
+    	System.out.println(iv1+"********************");// 
+
     	iv1.setId(lastEnnemis.getId());
-    	paneEnnemis.getChildren().add(iv1);
-    	iv1.xProperty().setValue(iv1.getX()*16);
-    	iv1.yProperty().setValue(iv1.getY()*16);
-    	iv1.xProperty().bind((lastEnnemis.getXProperty()/*.multiply(16)*/));//(nombredepixel par mouv)
-    	iv1.yProperty().bind((lastEnnemis.getYProperty()/*.multiply(16)*/));
+    	paneMap.getChildren().add(iv1);
+    	//System.out.println(lastEnnemis.getXProperty());// => affiche dans la console "IntegerProperty [value: 0]"
+    	iv1.xProperty().bind((lastEnnemis.getXProperty().multiply(16)));//(nombredepixel par mouv)
+    	iv1.yProperty().bind((lastEnnemis.getYProperty().multiply(16)));
     }
     
     public void tourelleSprite(Tours tour, double x, double y) {

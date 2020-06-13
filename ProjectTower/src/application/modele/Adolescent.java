@@ -6,4 +6,10 @@ public class Adolescent extends Ennemis {
 		super.id = "#A"+compteur;//cherche id ds la superclasse
 		compteur++;
 	}
+
+	@Override
+	protected void decrementerPv(Object attaque) {
+		// TODO Auto-generated method stub
+		
+	}
 }
